@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    parallelism: 2
     docker:
       - image: circleci/python:3.6.1
     steps:
@@ -27,7 +28,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest
+            pytest --junitxml=test-reports/junit.xml $(circleci tests glob tests/**/test_*.py | circleci tests split)
       # 新たにstore_test_resultsステップを追加
       - store_test_results:
           path: test-reports
