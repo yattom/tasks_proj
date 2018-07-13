@@ -28,4 +28,6 @@ jobs:
           command: |
             . venv/bin/activate
             pytest
- 
+      # 新たにstore_test_resultsステップを追加
+      - store_test_results:
+          path: test-reports
